@@ -33,10 +33,11 @@ public class ProductServiceImpl implements IProductService {
 
     @Override
     public ResponseDto findProductById(Integer id) {
+        log.info("Starting method findProductById()");
         ProductEntity entity = repository.findById(id)
                 .orElseThrow(() -> new BusinessException(CodesAndDescriptionResponses.PRODUCT_NOT_FOUND.getDescription(),
                         CodesAndDescriptionResponses.PRODUCT_NOT_FOUND.getCode()));
-
+        log.info("product found with id: {}", entity.getId());
         ProductDto dto = mapper.toDto(entity);
         return ResponseDto.builder().code(CodesAndDescriptionResponses.OK.getCode())
                 .description(CodesAndDescriptionResponses.OK.getDescription())
@@ -45,13 +46,15 @@ public class ProductServiceImpl implements IProductService {
 
     @Override
     public ResponseDto findAllProducts() {
+        log.info("Starting method findAllProducts()");
         List<ProductEntity> productsEntity = repository.findAll();
 
         if (productsEntity.isEmpty()) {
+            log.info("products not found in the database.");
             throw new BusinessException(CodesAndDescriptionResponses.PRODUCTS_NOT_FOUNDS.getDescription(),
                     CodesAndDescriptionResponses.PRODUCTS_NOT_FOUNDS.getCode());
         }
-
+        log.info("products found in the database: {}", productsEntity.size());
         return ResponseDto.builder()
                 .code(CodesAndDescriptionResponses.OK.getCode())
                 .description(CodesAndDescriptionResponses.OK.getDescription())
