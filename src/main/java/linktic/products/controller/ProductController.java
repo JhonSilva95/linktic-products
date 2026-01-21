@@ -8,8 +8,9 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+@RestController
+@RequestMapping("/products")
 @RequiredArgsConstructor
-@RestController("/products")
 public class ProductController {
     private final IProductService service;
 
@@ -19,11 +20,11 @@ public class ProductController {
     }
 
     @GetMapping("/product/{id}")
-    public ResponseEntity<ResponseDto> findProductById(@PathVariable Integer Id) {
-        return ResponseEntity.ok(service.findProductById(Id));
+    public ResponseEntity<ResponseDto> findProductById(@PathVariable Integer id) {
+        return ResponseEntity.ok(service.findProductById(id));
     }
 
-    @GetMapping("/find-all-products}")
+    @GetMapping("/find-all-products")
     public ResponseEntity<ResponseDto> findAllProducts() {
         return ResponseEntity.ok(service.findAllProducts());
     }

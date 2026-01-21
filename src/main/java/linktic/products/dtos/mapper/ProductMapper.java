@@ -5,10 +5,15 @@ import linktic.products.entities.ProductEntity;
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
 
+import java.util.List;
+
 @Mapper(componentModel = "spring")
 public interface ProductMapper {
     ProductMapper INSTANCE = Mappers.getMapper(ProductMapper.class);
 
     ProductDto toDto(ProductEntity entity);
-    ProductEntity toEntity(ProductDto entity);
+
+    ProductEntity toEntity(ProductDto dto);
+
+    List<ProductDto> toDtoList(List<ProductEntity> entities);
 }

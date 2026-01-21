@@ -3,7 +3,6 @@ package linktic.products.exceptions;
 import linktic.products.dtos.ResponseDto;
 import linktic.products.utils.CodesAndDescriptionResponses;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.dao.DataAccessException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -12,14 +11,14 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 @Slf4j
 @RestControllerAdvice
 public class GlobalExceptionHandler {
-    @ExceptionHandler(RuntimeException.class)
-    public ResponseEntity<ResponseDto> handleBusinessException(DataAccessException ex) {
-        log.error("Error saving product: {}", ex.getMessage());
+    @ExceptionHandler(BusinessException.class)
+    public ResponseEntity<ResponseDto> handleBusinessException(BusinessException ex) {
+        log.error("Error Business Exception: {}", ex.getMessage());
         ResponseDto error = ResponseDto.builder()
-                .code(CodesAndDescriptionResponses.ERROR_SAVING_PRODUCT.getCode())
-                .description(CodesAndDescriptionResponses.ERROR_SAVING_PRODUCT.getDescription())
+                .code(Integer.parseInt(ex.getCode()))
+                .description(ex.getMessage())
                 .build();
-        return new ResponseEntity<>(error, HttpStatus.BAD_REQUEST);
+        return new ResponseEntity<>(error, HttpStatus.NOT_FOUND);
     }
 
     @ExceptionHandler(Exception.class)
