@@ -8,7 +8,7 @@ import lombok.NoArgsConstructor;
 
 @Data
 @Builder
-@NoArgsConstructor  // <--- ESTE ES EL QUE FALTA PARA JACKSON
+@NoArgsConstructor
 @AllArgsConstructor
 public class ProductDto {
     private Integer id;
