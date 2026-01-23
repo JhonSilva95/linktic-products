@@ -28,8 +28,8 @@ public class ProductController {
         return ResponseEntity.ok(service.findProductById(id));
     }
 
-    @GetMapping("/find-all-products")
 
+    @GetMapping("/find-all-products")
     public ResponseEntity<ResponseDto> findAllProducts() {
         log.info("Starting controller findAllProducts()");
         return ResponseEntity.ok(service.findAllProducts());
